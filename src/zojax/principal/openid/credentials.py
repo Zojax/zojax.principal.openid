@@ -85,12 +85,12 @@ def installCredentialsPlugin(plugin, ev):
     event.notify(ObjectCreatedEvent(plugin))
 
     auth = removeSecurityProxy(auth)
-    if 'credendials.openid' in auth:
-        del auth['credendials.openid']
+    if 'credentials.openid' in auth:
+        del auth['credentials.openid']
 
-    auth['credendials.openid'] = plugin
+    auth['credentials.openid'] = plugin
     auth.credentialsPlugins = tuple(auth.credentialsPlugins) + \
-        ('credendials.openid',)
+        ('credentials.openid',)
 
 
 @component.adapter(IOpenIdUsersPlugin, IObjectRemovedEvent)
@@ -98,9 +98,9 @@ def uninstallCredentialsPlugin(plugin, ev):
     auth = getUtility(IAuthentication)
 
     plugins = list(auth.credentialsPlugins)
-    if 'credendials.openid' in plugins:
-        plugins.remove('credendials.openid')
+    if 'credentials.openid' in plugins:
+        plugins.remove('credentials.openid')
         auth.credentialsPlugins = tuple(plugins)
 
-    if 'credendials.openid' in auth:
-        del auth['credendials.openid']
+    if 'credentials.openid' in auth:
+        del auth['credentials.openid']
